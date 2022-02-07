@@ -1,9 +1,22 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import { useNavigate } from "react-router-native";
 import FormikTextInput from './FormikTextInput';
 import Button from './Button';
+import Text from './Text';
+import Theme from '../Theme';
+import useSignIn from '../hooks/useSignIn';
+
+const styles = StyleSheet.create({
+  errorText: {
+    marginTop: 10,
+    marginLeft: 10,
+    marginRight: 10,
+    color: Theme.colors.errorTextColor,
+  },
+});
 
 const validationSchema =yup.object().shape({
     username: yup
@@ -21,11 +34,22 @@ const initialValues={
         password:''
 };
 
-const onSubmit=(values)=>{
-    console.log('submit',values);
-};
-
 const SignIn = () => {
+    const [error, setError] = useState('');
+    const [signIn] = useSignIn();
+    const navigate = useNavigate();
+
+    const onSubmit = async (values)=>{
+        const { username, password } = values;
+        try {
+            await signIn({ username, password });
+            navigate("/", { replace: true });
+        } catch (e) {
+            setError(e.graphQLErrors[0].message);
+            console.log(error);
+        }
+    };
+
     return (
         <View>
             <Formik
@@ -34,8 +58,8 @@ const SignIn = () => {
                 onSubmit={onSubmit}>
                     {({handleSubmit})=>
                     <View>
-                        <FormikTextInput name='username' placeholder='Username' />
-                        <FormikTextInput secureTextEntry={true} name='password' placeholder='Password' />
+                        <FormikTextInput name='username' placeholder='Username' error={''} setError={setError} />
+                        <FormikTextInput secureTextEntry={true} name='password' placeholder='Password' error={error} setError={setError} />
                         <Button label='Sign in' onPress={handleSubmit}/>
                     </View>}             
             </Formik>  

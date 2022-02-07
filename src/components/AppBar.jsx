@@ -3,6 +3,7 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
 import Theme from '../Theme';
 import AppBarTab from './AppBarTab';
+import useMe  from "../hooks/useMe";
 
 const styles = StyleSheet.create({
     container: {
@@ -22,19 +23,22 @@ const styles = StyleSheet.create({
 //     console.log('You pressed the text!');
 // };
 
-const appTabList = [
-    {tabLabel: 'Repositories', path: '/'},
-    {tabLabel: 'Sign in',path: '/signin'},
-    {tabLabel: 'Sign up',path: '/signin'},
-    {tabLabel: 'Search',path: '/signin'},
-    {tabLabel: 'Search',path: '/signin'},
-];
-
 const AppBar = () => {
+    const { me } = useMe();
+
     return (
         <View style={styles.container}>
             <ScrollView horizontal>
-                {appTabList.map((tab, idx) => <AppBarTab key={idx} tabLabel={tab.tabLabel} path={tab.path} />)}
+                <AppBarTab tabLabel='Repositories' path='/' />
+                {me ? 
+                    <View>
+                        <AppBarTab tabLabel='Sign out' path='/signout' />
+                    </View>
+                    :
+                    <View>
+                        <AppBarTab tabLabel='Sign in' path='/signin' />
+                    </View>
+                }
             </ScrollView>
         </View>
     );
