@@ -3,6 +3,7 @@ import { StyleSheet, View, Image } from 'react-native';
 import Text from './Text';
 // import Constants from 'expo-constants';
 import Theme from '../Theme';
+import dataFormatter from '../utils/dataFormatter';
 
 const styles = StyleSheet.create({
     container0: {
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
 
 const RepositoryItem = ({ item, index }) => {
     return (
-        <View key={index} style={styles.container0}>
+        <View key={index} style={styles.container0} testID="repositoryItem">
             <View style={styles.container1}>
                 <Image 
                     style={styles.avatar}
@@ -61,13 +62,13 @@ const RepositoryItem = ({ item, index }) => {
                     </View>
                 </View>
             </View>
-            <View style={styles.container3}>
+            <View style={styles.container3} testID="repositoryItemData">
                 <View style={styles.container4}>
-                    <Text fontWeight="bold" style={{ padding: 5 }}>{(item.stargazersCount / 1000).toFixed(1)}k</Text>
+                    <Text fontWeight="bold" style={{ padding: 5 }}>{dataFormatter(item.stargazersCount)}</Text>
                     <Text color="textSecondary" style={{ padding: 5 }}>Stars</Text>
                 </View>
                 <View style={styles.container4}>
-                    <Text fontWeight="bold" style={{ padding: 5 }}>{(item.forksCount / 1000).toFixed(1)}k</Text>
+                    <Text fontWeight="bold" style={{ padding: 5 }}>{dataFormatter(item.forksCount)}</Text>
                     <Text color="textSecondary" style={{ padding: 5 }}>Forks</Text>
                 </View>
                 <View style={styles.container4}>

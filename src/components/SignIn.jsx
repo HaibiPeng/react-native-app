@@ -9,35 +9,35 @@ import Text from './Text';
 import Theme from '../Theme';
 import useSignIn from '../hooks/useSignIn';
 
-const styles = StyleSheet.create({
-  errorText: {
-    marginTop: 10,
-    marginLeft: 10,
-    marginRight: 10,
-    color: Theme.colors.errorTextColor,
-  },
-});
 
-const validationSchema =yup.object().shape({
-    username: yup
-        .string()
-        .min(3, 'Username must be at least 3 characters long')
-        .required('Username is required'),
-    password: yup
-        .string()
-        .min(6, 'Password must be at least 6 characters long')
-        .required('Password is required'),
-});
 
-const initialValues={
-        username:'',
-        password:''
-};
-
-const SignIn = () => {
+export const SignInContainer = ({ signIn, navigate }) => {
     const [error, setError] = useState('');
-    const [signIn] = useSignIn();
-    const navigate = useNavigate();
+
+    const styles = StyleSheet.create({
+        errorText: {
+            marginTop: 10,
+            marginLeft: 10,
+            marginRight: 10,
+            color: Theme.colors.errorTextColor,
+        },
+    });
+
+    const validationSchema =yup.object().shape({
+        username: yup
+            .string()
+            .min(3, 'Username must be at least 3 characters long')
+            .required('Username is required'),
+        password: yup
+            .string()
+            .min(6, 'Password must be at least 6 characters long')
+            .required('Password is required'),
+    });
+
+    const initialValues={
+            username:'',
+            password:''
+    };
 
     const onSubmit = async (values)=>{
         const { username, password } = values;
@@ -65,6 +65,13 @@ const SignIn = () => {
             </Formik>  
         </View>
     );
+}
+
+const SignIn = () => {
+    const [signIn] = useSignIn();
+    const navigate = useNavigate();
+
+    return <SignInContainer signIn={signIn} navigate={navigate} />;
 };
 
 export default SignIn;

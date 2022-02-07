@@ -8,7 +8,20 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "lint": "eslint ./src/**/*.{js,jsx} App.js --no-error-on-unmatched-pattern"
+    "lint": "eslint ./src/**/*.{js,jsx} App.js --no-error-on-unmatched-pattern",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|@sentry/.*|react-router-native)"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/setupTests.js"
+    ]
   },
   "dependencies": {
     "@apollo/client": "^3.5.8",
@@ -30,8 +43,13 @@
     "@babel/core": "^7.9.0",
     "@babel/eslint-parser": "^7.16.5",
     "@expo/webpack-config": "^0.16.16",
+    "@testing-library/jest-native": "^4.0.4",
+    "@testing-library/react-native": "^9.0.0",
     "eslint": "^8.8.0",
-    "eslint-plugin-react": "^7.28.0"
+    "eslint-plugin-jest": "^26.1.0",
+    "eslint-plugin-react": "^7.28.0",
+    "jest": "^27.5.0",
+    "jest-expo": "^44.0.1"
   },
   "resolutions": {
     "react-devtools-core": "4.13.0"
