@@ -20,7 +20,7 @@ const AppBarTab = ({ tabLabel, path }) => {
         //         <Text style={styles.text}>{tabLabel}</Text>
         //     </Link>
         // </Pressable>
-        <Link to={path}>
+        <Link underlayColor="transparent" to={path}>
             <Text style={styles.text}>{tabLabel}</Text>
         </Link>
     );

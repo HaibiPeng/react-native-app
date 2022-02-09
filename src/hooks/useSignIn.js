@@ -6,7 +6,6 @@ const useSignIn = () => {
     const [SignIn, data] = useMutation(SIGN_IN);
     const authStorage = useAuthStorage();
     const apolloClient = useApolloClient();
-    // console.log(data);
 
     const signIn = async ({ username, password }) => {
         // call the mutate function here with the right arguments
@@ -19,7 +18,6 @@ const useSignIn = () => {
 
         let token = res?.data?.authenticate?.accessToken;
         if(token) {
-            console.log(token);
             await authStorage.setAccessToken(token);
             apolloClient.resetStore();
         }

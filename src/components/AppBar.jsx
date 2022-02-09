@@ -16,13 +16,6 @@ const styles = StyleSheet.create({
     // ...
 });
 
-// const onPressFunction = (pressable) => {
-//     if (pressable) {
-//         Alert.alert('You pressed the text!');   
-//     }
-//     console.log('You pressed the text!');
-// };
-
 const AppBar = () => {
     const { me } = useMe();
 
@@ -31,13 +24,19 @@ const AppBar = () => {
             <ScrollView horizontal>
                 <AppBarTab tabLabel='Repositories' path='/' />
                 {me ? 
-                    <View>
-                        <AppBarTab tabLabel='Sign out' path='/signout' />
-                    </View>
+                    <AppBarTab tabLabel='Create a review' path='/createreview' />
                     :
-                    <View>
-                        <AppBarTab tabLabel='Sign in' path='/signin' />
-                    </View>
+                    <AppBarTab tabLabel='Sign in' path='/signin' />
+                }
+                {me ? 
+                    <AppBarTab tabLabel='My reviews' path='/myreviews' />
+                    :
+                    null
+                }
+                {me ? 
+                    <AppBarTab tabLabel='Sign out' path='/signout' />
+                    :
+                    <AppBarTab tabLabel='Sign up' path='/signup' />
                 }
             </ScrollView>
         </View>

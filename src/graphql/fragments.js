@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
-export const RepositoryList = gql`
-	fragment CoreNodeFields on Repository {
+export const CORE_REPOSITORY_FIELDS = gql`
+	fragment CoreRepositoryFields on Repository {
 		id
 		fullName
 		description
@@ -11,5 +11,20 @@ export const RepositoryList = gql`
 		ratingAverage
 		reviewCount
 		ownerAvatarUrl
+		url
+	}
+`;
+
+export const CORE_REVIEW_FIELDS = gql`
+	fragment CoreReviewFields on Review {
+		id
+		text
+		rating
+		createdAt
+		repositoryId
+		user {
+			id
+			username
+		}
 	}
 `;

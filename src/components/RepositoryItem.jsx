@@ -1,9 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View, Image, Linking } from 'react-native';
+import { Link } from "react-router-native";
 import Text from './Text';
 // import Constants from 'expo-constants';
 import Theme from '../Theme';
 import dataFormatter from '../utils/dataFormatter';
+import Button from './Button';
 
 const styles = StyleSheet.create({
     container0: {
@@ -17,6 +19,7 @@ const styles = StyleSheet.create({
     },
     container2: {
         display: 'flex',
+        flexShrink: 1,
         flexDirection: 'column',
         justifyContent: 'space-around',
         paddingLeft: 10,
@@ -44,9 +47,9 @@ const styles = StyleSheet.create({
     },
 });
 
-const RepositoryItem = ({ item, index }) => {
+const RepositoryInfo = ({ item }) => {
     return (
-        <View key={index} style={styles.container0} testID="repositoryItem">
+        <View>
             <View style={styles.container1}>
                 <Image 
                     style={styles.avatar}
@@ -80,6 +83,31 @@ const RepositoryItem = ({ item, index }) => {
                     <Text color="textSecondary" style={{ padding: 5 }}>Rating</Text>
                 </View>
             </View>
+        </View>
+    );
+};
+
+const RepositoryItem = ({ item, git }) => {
+    const openGitHub = ()=>{
+        Linking.openURL(item.url);
+    };
+
+    return (
+        <View key={item.id} style={styles.container0} testID="repositoryItem">
+            {
+                git ?
+                <RepositoryInfo item={item} />
+                :
+                <Link underlayColor="transparent" to={`/repositories/${item.id}`}>
+                    <RepositoryInfo item={item} />
+                </Link>
+            }
+            {
+                git ? 
+                <Button label='Open in GitHub' onPress={() => openGitHub()}/>
+                :
+                null
+            }
         </View>
     );
 };

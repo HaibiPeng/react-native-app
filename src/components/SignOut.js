@@ -16,7 +16,7 @@ const SignOut = () => {
             await apolloClient.resetStore();
             navigate("/", { replace: true });
         } catch (e) {
-            console.log(e);
+            console.log(e.message);
         }
     };
 

@@ -5,7 +5,6 @@ import Text from './Text';
 
 const styles=StyleSheet.create({
     defaultButton:{
-        backgroundColor: Theme.colors.primary,
         padding: 10,
         margin: 10,
         borderRadius: 5,
@@ -21,9 +20,9 @@ const styles=StyleSheet.create({
     }
 });
 
-const Button = ({label, ...props}) => {
+const Button = ({ label, ...props }) => {
     return (
-        <Pressable style={styles.defaultButton} {...props}>
+        <Pressable style={{...styles.defaultButton, backgroundColor: props?.backgroundColor ? props.backgroundColor : Theme.colors.primary}} {...props}>
            <Text style={styles.defaultLabel}>{label}</Text> 
         </Pressable>
     );
